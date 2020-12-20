@@ -367,6 +367,7 @@
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/bt/CMakeFiles/list_install_components.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/bt/CMakeFiles/rebuild_cache.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/bt/CMakeFiles/edit_cache.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/bt/CMakeFiles/__idf_bt.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/cbor/CMakeFiles/install/local.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/cbor/CMakeFiles/install/strip.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/cbor/CMakeFiles/install.dir
@@ -624,6 +625,13 @@
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/wifi_provisioning/CMakeFiles/rebuild_cache.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/wifi_provisioning/CMakeFiles/edit_cache.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/install/local.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/install/strip.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/install.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/list_install_components.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/rebuild_cache.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/edit_cache.dir
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/CMakeFiles/__idf_BLUETOOTH.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUTTON/CMakeFiles/install/local.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUTTON/CMakeFiles/install/strip.dir
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUTTON/CMakeFiles/install.dir

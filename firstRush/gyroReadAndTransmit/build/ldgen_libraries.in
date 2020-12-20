@@ -35,6 +35,7 @@ $<TARGET_FILE:__idf_newlib>
 $<TARGET_FILE:__idf_cxx>
 $<TARGET_FILE:__idf_app_trace>
 $<TARGET_FILE:__idf_asio>
+$<TARGET_FILE:__idf_bt>
 $<TARGET_FILE:__idf_cbor>
 $<TARGET_FILE:__idf_unity>
 $<TARGET_FILE:__idf_cmock>
@@ -68,6 +69,7 @@ $<TARGET_FILE:__idf_openssl>
 $<TARGET_FILE:__idf_spiffs>
 $<TARGET_FILE:__idf_ulp>
 $<TARGET_FILE:__idf_wifi_provisioning>
+$<TARGET_FILE:__idf_BLUETOOTH>
 $<TARGET_FILE:__idf_BUTTON>
 $<TARGET_FILE:__idf_BUZZER>
 $<TARGET_FILE:__idf_I2C>

@@ -21,10 +21,35 @@
 #include "i2c_imu.h"
 #include "mpu6050.h"
 #include "imugather.h"
+#include "bluetoothh.h"
+
+// FOR BLUETOOTH
+
+/* Declare static functions */
+
+
+// END FOR BLUETOOTH
+
+
+
+// FOR I2C
 
 #define IMUASSIGNEDPIN 14
 #define flagActive 0 //this is flag related with ssDefaultAddr, it defines being pins active low or high.
 
+// END FOR I2C
+
+
+
+
+//FUNCTIONS
+
+// FOR BLUETOOTH
+
+
+// END FOR BLUETOOTH
+
+// FOR I2C
 
 void initGpioForImuAndSelect(int targetAssignedPin){
 
@@ -42,11 +67,25 @@ void initI2C(){
         printf("something went wrong with i2c init\n");    
 }
 
+// END FOR I2C
+
 void app_main(void)
 {
-    initGpioForImuAndSelect(IMUASSIGNEDPIN);
 
-    initI2C();
+    // INITS
+    float angleData = 0;
+    initBluetoothAndStreamData(&angleData, sizeof(float));
+
+
+
+    // I2C INITS
+    initGpioForImuAndSelect(IMUASSIGNEDPIN);
+    initI2C();    
+
+
+
+
+    // FOR I2C AND IMU
 
     IMU* babyImu = (IMU*) malloc(sizeof(IMU));
     babyImu->assignedPin = IMUASSIGNEDPIN;
@@ -56,6 +95,8 @@ void app_main(void)
 
     setConfigurations();
 
+
+    // ANGLE CALCULATION
     float angle = 0;
     int32_t startTime = esp_timer_get_time();
     while(1){
@@ -65,33 +106,10 @@ void app_main(void)
          double deltaTime = (esp_timer_get_time() - startTime) / 1000.0 / 1000.0;
          angle += deltaTime * acc.radAccY;
          startTime = esp_timer_get_time();
-         printf("angle : %f \n", angle);
+         //printf("angle : %f \n", angle);
     }
 
+    
 
-    printf("Hello world!\n");
 
-    /* Print chip information */
-    esp_chip_info_t chip_info;
-    esp_chip_info(&chip_info);
-    printf("This is %s chip with %d CPU cores, WiFi%s%s, ",
-            CONFIG_IDF_TARGET,
-            chip_info.cores,
-            (chip_info.features & CHIP_FEATURE_BT) ? "/BT" : "",
-            (chip_info.features & CHIP_FEATURE_BLE) ? "/BLE" : "");
-
-    printf("silicon revision %d, ", chip_info.revision);
-
-    printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
-            (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
-
-    printf("Minimum free heap size: %d bytes\n", esp_get_minimum_free_heap_size());
-
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
 }
