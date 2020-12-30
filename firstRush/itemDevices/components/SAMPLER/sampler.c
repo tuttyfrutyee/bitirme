@@ -20,7 +20,7 @@
 #define PIN_NUM_CLK  14
 #define PIN_NUM_CS   15
 
-#define DFT_RANGE	 15
+#define DFT_RANGE	 40
 #define CLOCK_FREQ	 1000000
 #define SOUND_FREQ	 20000
 
@@ -31,6 +31,7 @@ DRAM_ATTR uint32_t results[DFT_RANGE];
 DRAM_ATTR float frequencies[DFT_RANGE];
 DRAM_ATTR uint8_t idx = 0;
 DRAM_ATTR uint32_t spi_counter = 0;
+DRAM_ATTR uint32_t spi_counter_saved = 0;
 DRAM_ATTR uint32_t dft_counter = 0;
 DRAM_ATTR TaskHandle_t adc_spi_task_handle, dft_task_handle;
 
@@ -43,7 +44,7 @@ float mean(float* arr, int len);
 void startSampler(){
 
 	xTaskCreatePinnedToCore(adc_spi_task, "ADC", 1000, NULL, 2, &adc_spi_task_handle, 1);
-	xTaskCreatePinnedToCore(dft_task, "DFT", 1000, NULL, 3, &dft_task_handle, 0);
+	xTaskCreatePinnedToCore(dft_task, "DFT", 3000, NULL, 3, &dft_task_handle, 0);
 
     // TIMER
     const esp_timer_create_args_t periodic_timer_args = {
@@ -110,7 +111,8 @@ void adc_spi_task(void *pvParameters){
 void periodic_timer_callback(void* arg)
 {
 	// nothing
-	printf("%d\t%d\n", spi_counter, dft_counter);
+	//printf("%d\t%d\n", spi_counter, dft_counter);
+    spi_counter_saved = spi_counter;
 	spi_counter = 0; dft_counter = 0;
 }
 
@@ -119,21 +121,59 @@ void dft_task(void *pvParameters){
 	uint32_t notification;
     int mode = 3;
     int i = 0;
+
+    float fSampleStationary = 0;
+    float fSampleSwitchThreshold = 100;
+
+    float cosfTable[DFT_RANGE];
+    float sinfTable[DFT_RANGE];
+
+    int printInterval = 1000;
+
+    float dftThreshold = 800;
+    int dftThresholdPatience = 100;
+    int dftExceedCounter = 0;
+    int64_t dftExceedStartTime = 0;
+
+
 	for(;;){
 		notification = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
         i++;
         i = i % mode;
 //		if(notification > 1) printf("error %\n");
         if(i == 0){
-            fSample = mean(frequencies, DFT_RANGE);
-            omega = 2 * M_PI * SOUND_FREQ / fSample;
+            if(spi_counter_saved > fSampleStationary + fSampleSwitchThreshold || spi_counter_saved < fSampleStationary - fSampleSwitchThreshold){
+                fSampleStationary = spi_counter_saved;
+                omega = 2 * M_PI * SOUND_FREQ / fSampleStationary;
+                for(int i = 0; i < DFT_RANGE; i++){
+                    cosfTable[i] =  cosf(omega * i);
+                    sinfTable[i] = sinf(omega * i);
+                }                
+            }
+            
             sumCos = 0; sumSin = 0;
             for(int i = 0; i < DFT_RANGE; i++){
-                sumCos +=/* cosf(omega * i) * */results[i];
-                sumSin +=/* sinf(omega * i) * */results[i];
+                sumCos +=  cosfTable[i] *  (float)(results[i]);
+                sumSin +=  sinfTable[i] *  (float)(results[i]);
             }
+
             dft = sqrtf(sumCos * sumCos + sumSin * sumSin);
             dft_counter++;
+            if(dft > dftThreshold){
+                if(dftExceedCounter == 0){
+                    dftExceedStartTime = esp_timer_get_time();
+                    dftExceedCounter = dftThresholdPatience;
+                }
+            }else{
+                if(dftExceedCounter == 1){
+                    printf("recieveTime = %f\n", (float)(esp_timer_get_time() - dftExceedStartTime) / 1000000.0);
+                }
+                if(dftExceedCounter != 0){
+                    dftExceedCounter --;
+                }
+            }
+            if(dft_counter % printInterval == 0)
+                //printf("dft is %f\n", dft);
             taskYIELD();
         }
 
