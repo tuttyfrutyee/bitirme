@@ -1,7 +1,11 @@
 #include "bluetoothh.h"
+#include "acceleration.h"
+#include "mpu6050.h"
 
+#include "imugather.h"
 
-
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
@@ -54,6 +58,8 @@ static struct gattc_profile_inst gl_profile_tab[PROFILE_NUM] = {
 
 float * streamData = 0;
 int streamDataLength = 0;
+int okeyToSend = 0;
+
 
 
 static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param)
@@ -239,18 +245,9 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
             break;
         }
         ESP_LOGI(GATTC_TAG, "write descr success ");
-        uint8_t write_char_data[35];
-        for (int i = 0; i < sizeof(write_char_data); ++i)
-        {
-            write_char_data[i] = i % 256;
-        }
-        esp_ble_gattc_write_char( gattc_if,
-                                  gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-                                  gl_profile_tab[PROFILE_A_APP_ID].char_handle,
-                                  sizeof(write_char_data),
-                                  write_char_data,
-                                  ESP_GATT_WRITE_TYPE_RSP,
-                                  ESP_GATT_AUTH_REQ_NONE);
+        
+        okeyToSend = 1;
+
         break;
     case ESP_GATTC_SRVC_CHG_EVT: {
         esp_bd_addr_t bda;
@@ -397,11 +394,70 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp
     } while (0);
 }
 
+#define IMUASSIGNEDPIN 14
+
+void monitorAngle(float * angle_){
+    float angle = 0;
+    int64_t startTime = esp_timer_get_time();
 
 
+    IMU* babyImu = (IMU*) malloc(sizeof(IMU));
+    babyImu->assignedPin = IMUASSIGNEDPIN;    
+
+    while(1){
+        Acceleration acc = getAccelerations();
+        babyImu->imu.acc = acc;
+        // printAccelerationData(babyImu->imu);
+        double deltaTime = (esp_timer_get_time() - startTime) / 1000.0 / 1000.0;
+        angle += deltaTime * acc.radAccY;
+        *angle_ = angle;
+        startTime = esp_timer_get_time();
+        //printf("angle : %f \n", angle);  
+    }
+  
+}
+
+void sendDataBluetooth(){
+
+    printf("started sendDataBluetooth\n");
+
+    vTaskDelay(3000 / portTICK_PERIOD_MS);
+
+    float angle = 0;
+    xTaskCreate(monitorAngle, "monitorAngle", 4096 * 2, (void*) &angle, 10, NULL);
 
 
-void initBluetoothAndStreamData(float * streamData, int streamDataLength){
+    while(1){
+
+
+              
+
+        if(gl_profile_tab[PROFILE_A_APP_ID].gattc_if != ESP_GATT_IF_NONE && okeyToSend){
+            
+
+            
+            printf("sending new stuff now\n");
+            uint8_t* angle_data = 0;
+            angle_data = (uint8_t*) &angle;
+
+            esp_ble_gattc_write_char( gl_profile_tab[PROFILE_A_APP_ID].gattc_if,
+                                    gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+                                    gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+                                    sizeof(float),
+                                    angle_data,
+                                    ESP_GATT_WRITE_TYPE_NO_RSP,
+                                    ESP_GATT_AUTH_REQ_NONE);
+        }else{
+            printf("gatt if is none\n");
+        }
+
+        vTaskDelay(50 / portTICK_PERIOD_MS);
+
+    }
+
+}
+
+void initBluetoothAndStreamData(){
         // Initialize NVS.
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -459,6 +515,11 @@ void initBluetoothAndStreamData(float * streamData, int streamDataLength){
     if (local_mtu_ret){
         ESP_LOGE(GATTC_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
     }    
+
+
+    xTaskCreate(sendDataBluetooth, "sendDataBluetooth", 4096 * 2, NULL, 10, NULL);
+
+
 
 
 }

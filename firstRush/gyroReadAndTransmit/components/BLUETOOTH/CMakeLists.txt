@@ -1,3 +1,3 @@
 idf_component_register(SRCS "bluetoothh.c"
                   INCLUDE_DIRS "include"
-                  REQUIRES "nvs_flash" "bt")
+                  REQUIRES "nvs_flash" "bt" MPU6050 IMUGATHER)

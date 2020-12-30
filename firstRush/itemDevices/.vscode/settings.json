@@ -1,0 +1,35 @@
+{
+  "C_Cpp.clang_format_style": "Visual Studio",
+  "editor.formatOnSave": false,
+  "[cpp]": {
+    "editor.quickSuggestions": true
+  },
+  "[c]": {
+    "editor.quickSuggestions": true
+  },
+  "C_Cpp.intelliSenseEngineFallback": "Enabled",
+  "files.associations": {
+    "queue": "c",
+    "__bit_reference": "c",
+    "__functional_base": "c",
+    "__node_handle": "c",
+    "algorithm": "c",
+    "atomic": "c",
+    "bitset": "c",
+    "chrono": "c",
+    "deque": "c",
+    "__memory": "c",
+    "optional": "c",
+    "functional": "c",
+    "iterator": "c",
+    "limits": "c",
+    "memory": "c",
+    "random": "c",
+    "ratio": "c",
+    "system_error": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "vector": "c",
+    "saver.h": "c"
+  }
+}

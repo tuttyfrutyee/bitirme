@@ -11,6 +11,14 @@
   "files.associations": {
     "freertos.h": "c",
     "mpu6050.h": "c",
-    "imugather.h": "c"
+    "imugather.h": "c",
+    "__bit_reference": "c",
+    "algorithm": "c",
+    "bitset": "c",
+    "chrono": "c",
+    "map": "c",
+    "set": "c",
+    "unordered_map": "c",
+    "unordered_set": "c"
   }
 }

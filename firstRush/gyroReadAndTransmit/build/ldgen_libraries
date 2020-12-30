@@ -69,13 +69,13 @@
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/spiffs/libspiffs.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/ulp/libulp.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
-/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/libBLUETOOTH.a
-/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUTTON/libBUTTON.a
-/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUZZER/libBUZZER.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/I2C/libI2C.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/MPU6050/libMPU6050.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/SD/libSD.a
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUZZER/libBUZZER.a
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BUTTON/libBUTTON.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/HELPER/libHELPER.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/NETWORKS/libNETWORKS.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/IMUGATHER/libIMUGATHER.a
+/Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/BLUETOOTH/libBLUETOOTH.a
 /Users/tuttyfruty/Documents/bitirme/firstRush/gyroReadAndTransmit/build/esp-idf/main/libmain.a

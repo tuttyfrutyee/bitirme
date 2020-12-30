@@ -33,4 +33,4 @@ static esp_gattc_descr_elem_t *descr_elem_result = NULL;
 
 
 
-void initBluetoothAndStreamData(float * streamData, int streamDataLength);
+void initBluetoothAndStreamData();

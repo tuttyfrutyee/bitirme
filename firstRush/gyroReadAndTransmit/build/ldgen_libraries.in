@@ -69,13 +69,13 @@ $<TARGET_FILE:__idf_openssl>
 $<TARGET_FILE:__idf_spiffs>
 $<TARGET_FILE:__idf_ulp>
 $<TARGET_FILE:__idf_wifi_provisioning>
-$<TARGET_FILE:__idf_BLUETOOTH>
-$<TARGET_FILE:__idf_BUTTON>
-$<TARGET_FILE:__idf_BUZZER>
 $<TARGET_FILE:__idf_I2C>
 $<TARGET_FILE:__idf_MPU6050>
 $<TARGET_FILE:__idf_SD>
+$<TARGET_FILE:__idf_BUZZER>
+$<TARGET_FILE:__idf_BUTTON>
 $<TARGET_FILE:__idf_HELPER>
 $<TARGET_FILE:__idf_NETWORKS>
 $<TARGET_FILE:__idf_IMUGATHER>
+$<TARGET_FILE:__idf_BLUETOOTH>
 $<TARGET_FILE:__idf_main>

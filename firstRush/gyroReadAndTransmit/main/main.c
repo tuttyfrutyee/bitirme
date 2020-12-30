@@ -23,6 +23,7 @@
 #include "imugather.h"
 #include "bluetoothh.h"
 
+
 // FOR BLUETOOTH
 
 /* Declare static functions */
@@ -73,8 +74,6 @@ void app_main(void)
 {
 
     // INITS
-    float angleData = 0;
-    initBluetoothAndStreamData(&angleData, sizeof(float));
 
 
 
@@ -87,27 +86,18 @@ void app_main(void)
 
     // FOR I2C AND IMU
 
-    IMU* babyImu = (IMU*) malloc(sizeof(IMU));
-    babyImu->assignedPin = IMUASSIGNEDPIN;
     vTaskDelay(300 / portTICK_PERIOD_MS);
     //selfTest();
     vTaskDelay(300 / portTICK_PERIOD_MS);
 
     setConfigurations();
 
+    initBluetoothAndStreamData();
+
+
 
     // ANGLE CALCULATION
-    float angle = 0;
-    int32_t startTime = esp_timer_get_time();
-    while(1){
-        Acceleration acc = getAccelerations();
-        babyImu->imu.acc = acc;
-        // printAccelerationData(babyImu->imu);
-         double deltaTime = (esp_timer_get_time() - startTime) / 1000.0 / 1000.0;
-         angle += deltaTime * acc.radAccY;
-         startTime = esp_timer_get_time();
-         //printf("angle : %f \n", angle);
-    }
+
 
     
 
