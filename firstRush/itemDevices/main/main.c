@@ -18,7 +18,7 @@
 #include "sampler.h"
 #include "wired.h"
 
-#define DEV_ID 0
+#define DEV_ID 1
 
 void app_main(void)
 {

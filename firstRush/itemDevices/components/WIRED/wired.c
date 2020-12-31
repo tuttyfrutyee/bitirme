@@ -47,7 +47,7 @@ void init_wired(int dev_id){
         xTaskCreatePinnedToCore(listen_register_down, "listen", 1024, NULL, 5, NULL, 0);
     }
     if(dev_id != 0){
-        xTaskCreatePinnedToCore(gpio_task, "gpio_task", 1024, NULL, 10, NULL, 0);
+        xTaskCreatePinnedToCore(gpio_task, "gpio_task", 2048, NULL, 10, NULL, 0);
     }
 
     
@@ -178,7 +178,7 @@ void start_syncher(void* arg){
             gpio_set_level(INT_OUT, 0);
             vTaskDelay(500 / portTICK_RATE_MS);
             time = esp_timer_get_time();
-		    uart_write_bytes(UART_1, (const char*)(&time), sizeof(time));
+		    uart_write_bytes(UART_2, (const char*)(&time), sizeof(time));
             gpio_set_level(INT_OUT, 1);
             vTaskDelay(500 / portTICK_RATE_MS);
         }
@@ -237,8 +237,10 @@ static void gpio_task(void* arg) {
     int64_t int_time, upper_time;
     for(;;) {
         xQueueReceive(gpio_evt_queue, &int_time, portMAX_DELAY);
+        printf("hello world beya\n");
         uart_read_bytes(UART_1, (uint8_t *)(&upper_time), sizeof(int64_t), portMAX_DELAY);
         delta_time = upper_time - int_time;
+        printf("delta time : %lld \n", delta_time);
     	gpio_intr_enable(INT_IN);
     }
 }

@@ -1,4 +1,4 @@
-# Install script for directory: /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/components/BLUETOOTH
+# Install script for directory: /Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/components/BLUETOOTH
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

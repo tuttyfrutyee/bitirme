@@ -1,4 +1,4 @@
-# Install script for directory: /home/salih/esp/esp-idf/components/mbedtls/mbedtls
+# Install script for directory: /Users/tuttyfruty/esp/esp-idf/components/mbedtls/mbedtls
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
-  include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
+  include("/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
+  include("/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
 
 endif()
 
