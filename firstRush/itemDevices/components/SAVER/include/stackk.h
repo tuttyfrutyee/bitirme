@@ -1,5 +1,10 @@
 #include "esp_system.h"
 
+#ifndef STACKK
+#define STACKK
+
+void initStackk();
+
 typedef struct AngleEl {
 
     int32_t timeStamp;
@@ -19,7 +24,7 @@ AngleEl* popFromAngleQueue();
 
 typedef struct RegisterEl {
 
-    int32_t timeStamp;
+    int64_t timeStamp;
     uint8_t itemId; // 0, 1, 2
     float freq; // identifier frequency
 
@@ -28,5 +33,7 @@ typedef struct RegisterEl {
 int isRegisterQueueFull();
 int isRegisterQueueEmpty();
 int getRegisterQueueSize();
-int pushToRegisterQueue(AngleEl* element);
-AngleEl* popFromRegisterQueue();
+int pushToRegisterQueue(RegisterEl* element);
+RegisterEl* popFromRegisterQueue();
+
+#endif

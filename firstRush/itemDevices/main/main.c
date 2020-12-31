@@ -23,10 +23,10 @@
 void app_main(void)
 {
     init_sampler();
-    init_syncher(DEV_ID);
+    init_wired(DEV_ID);
     if(DEV_ID == 0) {
         initBluetoothAndStartRecieve();
         startSaver();
     }
-    startSampler();
+    startSampler(DEV_ID);
 }

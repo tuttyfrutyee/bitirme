@@ -1,5 +1,11 @@
 #include "stackk.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/semphr.h"
 
+
+SemaphoreHandle_t xSemaphore_angle = NULL;
+SemaphoreHandle_t xSemaphore_register = NULL;
 
 
 // FOR ANGLE
@@ -26,6 +32,8 @@ int getAngleQueueSize(){
 
 int pushToAngleQueue(AngleEl* element){
     
+    xSemaphoreTake(xSemaphore_angle, portMAX_DELAY);
+
     if(isAngleQueueFull()){
         printf("Error : Queue is full, can not push anymore\n");
         return 0;
@@ -35,10 +43,14 @@ int pushToAngleQueue(AngleEl* element){
 
     rear_angle = (rear_angle + 1) % MAXCAPACITY_ANGLE;
 
+    xSemaphoreGive(xSemaphore_angle);
+
     return 1;
 }
 
 AngleEl* popFromAngleQueue(){
+
+    xSemaphoreTake(xSemaphore_angle, portMAX_DELAY);
 
     if(isAngleQueueEmpty()){
         printf("Error . Queue is empty, can not pop anymore\n");
@@ -49,6 +61,9 @@ AngleEl* popFromAngleQueue(){
 
     front_angle = (front_angle + 1) % MAXCAPACITY_ANGLE;
 
+    xSemaphoreGive(xSemaphore_angle);
+
+
     return willReturn;
 
 }
@@ -56,7 +71,7 @@ AngleEl* popFromAngleQueue(){
 // FOR REGISTER STACK
 #define MAXCAPACITY_REGISTER 1000 //actually max capacity is maxCapacity - 1
 int front_register = 0, rear_register = 0;
-AngleEl** queue_register[MAXCAPACITY_REGISTER];
+RegisterEl** queue_register[MAXCAPACITY_REGISTER];
 
 // queue functions
 
@@ -75,7 +90,10 @@ int getRegisterQueueSize(){
     return size;
 }
 
-int pushToRegisterQueue(AngleEl* element){
+int pushToRegisterQueue(RegisterEl* element){
+
+    xSemaphoreTake(xSemaphore_register, portMAX_DELAY);
+
     
     if(isRegisterQueueFull()){
         printf("Error : Queue is full, can not push anymore\n");
@@ -86,22 +104,35 @@ int pushToRegisterQueue(AngleEl* element){
 
     rear_register = (rear_register + 1) % MAXCAPACITY_REGISTER;
 
+    xSemaphoreGive(xSemaphore_register);
+
     return 1;
 }
 
-AngleEl* popFromRegisterQueue(){
+RegisterEl* popFromRegisterQueue(){
+
+    xSemaphoreTake(xSemaphore_register, portMAX_DELAY);
+
 
     if(isRegisterQueueEmpty()){
         printf("Error . Queue is empty, can not pop anymore\n");
         return 0;
     }
 
-    AngleEl* willReturn = queue_angle[front_register];
+    RegisterEl* willReturn = queue_angle[front_register];
 
     front_register = (front_register + 1) % MAXCAPACITY_REGISTER;
 
+    xSemaphoreGive(xSemaphore_register);
+    
+
     return willReturn;
 
+}
+
+void initStackk(){
+    xSemaphore_angle = xSemaphoreCreateBinary();    
+    xSemaphore_register = xSemaphoreCreateBinary();        
 }
 
 

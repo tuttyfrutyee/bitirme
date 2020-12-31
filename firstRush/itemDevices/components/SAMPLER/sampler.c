@@ -41,12 +41,16 @@ spi_transaction_t transfer;
 spi_device_handle_t spi;
 //lets believe in this shit
 
+uint8_t dev_id;
+
 void periodic_timer_callback(void* arg);
 void adc_spi_task(void *pvParameters);
 void dft_task(void *pvParameters);
 float mean(float* arr, int len);
 
-void init_sampler() {
+void init_sampler(uint8_t dev_idd) {
+
+    dev_id = dev_idd;
     // TIMER
     const esp_timer_create_args_t periodic_timer_args = {
               .callback = &periodic_timer_callback,
@@ -137,10 +141,9 @@ void dft_task(void *pvParameters){
 
     int printInterval = 1000;
 
-    float dftThreshold = 800;
-    int dftThresholdPatience = 100;
-    int dftExceedCounter = 0;
-    int64_t dftExceedStartTime = 0;
+    float dftRegisterThreshold = 800;
+    int64_t dftRegisterInterval = 2000;
+    int64_t registeredTime = 0;
 
 
 	for(;;){
@@ -166,20 +169,13 @@ void dft_task(void *pvParameters){
 
             dft = sqrtf(sumCos * sumCos + sumSin * sumSin);
             dft_counter++;
-            if(dft > dftThreshold){
-                if(dftExceedCounter == 0){
-                    dftExceedStartTime = esp_timer_get_time();
-                    dftExceedCounter = dftThresholdPatience;
-                }
-            }else{
-                if(dftExceedCounter == 1){
-                    printf("recieveTime = %f\n", (float)(esp_timer_get_time() - dftExceedStartTime) / 1000000.0);
-                }
-                if(dftExceedCounter != 0){
-                    dftExceedCounter --;
+            if(dft > dftRegisterThreshold){
+                int64_t currentTime = esp_timer_get_time();
+                if(currentTime - registeredTime > dftRegisterInterval){
+                    registeredTime = currentTime;
+                     send_own_register(dev_id, currentTime);
                 }
             }
-            if(dft_counter % printInterval == 0)
                 //printf("dft is %f\n", dft);
             taskYIELD();
         }

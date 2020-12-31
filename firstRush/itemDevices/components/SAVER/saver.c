@@ -2,6 +2,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
+#include "stackk.h"
 
 int checkAngleStack = 0;
 int checkRegisterStack = 0;
@@ -29,7 +30,12 @@ void saverMain(){
 
             if(isRegisterQueueFull()){
 
-                
+
+                while(!isRegisterQueueEmpty()){
+                    RegisterEl* registerEl = popFromRegisterQueue();
+                    printf("#_%c_%f_%lld\n", registerEl->itemId, registerEl->freq, registerEl->timeStamp);
+                    free(registerEl);
+                }                
 
             }            
 
@@ -63,6 +69,7 @@ void saveRegister(int64_t timeStamp, uint8_t itemId, float freq){
 
 
 void startSaver(){
+    initStackk();
     xTaskCreatePinnedToCore(saverMain, "saverMain", 4096 * 2, NULL, 1, NULL, 0);
 }
 

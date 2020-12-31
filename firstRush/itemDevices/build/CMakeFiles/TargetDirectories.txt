@@ -618,13 +618,6 @@
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/BLUETOOTH/CMakeFiles/list_install_components.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/BLUETOOTH/CMakeFiles/edit_cache.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/BLUETOOTH/CMakeFiles/rebuild_cache.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/install/strip.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/install/local.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/edit_cache.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/rebuild_cache.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/install.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/__idf_SAMPLER.dir
-/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/list_install_components.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/CMakeFiles/install/strip.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/CMakeFiles/install/local.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/CMakeFiles/__idf_WIRED.dir
@@ -632,3 +625,10 @@
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/CMakeFiles/list_install_components.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/CMakeFiles/edit_cache.dir
 /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/CMakeFiles/rebuild_cache.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/install/strip.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/install/local.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/edit_cache.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/rebuild_cache.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/install.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/__idf_SAMPLER.dir
+/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/CMakeFiles/list_install_components.dir

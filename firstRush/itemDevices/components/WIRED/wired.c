@@ -23,16 +23,41 @@
 
 static const int RX_BUF_SIZE = 1024;
 
+int dev_id;
+
 int64_t delta_time;
 static xQueueHandle gpio_evt_queue = NULL;
 
-static void gpio_task_example(void* arg);
 void forward_register_up(char* data, uint32_t len);
-void listen_register_down(int dev_id);
 static void IRAM_ATTR gpio_isr_handler(void* arg);
-static void gpio_task_example(void* arg);
+static void gpio_task(void* arg);
+void init_syncher(int);
+void start_syncher(void* arg);
+void listen_register_down(void* arg);
+void gpio_task(void* arg);
 
-void init_syncher(int dev_id){
+
+void init_wired(int dev_id){
+
+    init_syncher(dev_id);
+
+    xTaskCreatePinnedToCore(start_syncher, "start_syncher", 1024 , NULL, 7, NULL, 0);
+
+    if(dev_id != 2){
+        xTaskCreatePinnedToCore(listen_register_down, "listen", 1024, NULL, 5, NULL, 0);
+    }
+    if(dev_id != 0){
+        xTaskCreatePinnedToCore(gpio_task, "gpio_task", 1024, NULL, 10, NULL, 0);
+    }
+
+    
+}
+
+
+void init_syncher(int dev_idd){
+
+    dev_id = dev_idd;
+
 
     // common to all
     uart_config_t uart_config = {
@@ -133,7 +158,7 @@ void init_syncher(int dev_id){
     }
 }
 
-void start_syncher(int dev_id){
+void start_syncher(void* arg){
     int64_t time;
     switch (dev_id)
     {
@@ -149,9 +174,18 @@ void start_syncher(int dev_id){
         break;
 
     case 1:
+        for(;;){
+            gpio_set_level(INT_OUT, 0);
+            vTaskDelay(500 / portTICK_RATE_MS);
+            time = esp_timer_get_time();
+		    uart_write_bytes(UART_1, (const char*)(&time), sizeof(time));
+            gpio_set_level(INT_OUT, 1);
+            vTaskDelay(500 / portTICK_RATE_MS);
+        }
         break;
     
     case 2:
+        vTaskDelete(NULL);
         break;
 
     default:
@@ -164,7 +198,7 @@ void forward_register_up(char* data, uint32_t len) {
     uart_write_bytes(UART_1, data, len);
 }
 
-void listen_register_down(int dev_id){
+void listen_register_down(void* arg){
     uint8_t package[PACKAGE_LEN];
     int64_t temp_time;
     switch (dev_id)
@@ -199,7 +233,7 @@ static void IRAM_ATTR gpio_isr_handler(void* arg) {
     if(higher == pdTRUE) portYIELD_FROM_ISR();
 }
 
-static void gpio_task_example(void* arg) {
+static void gpio_task(void* arg) {
     int64_t int_time, upper_time;
     for(;;) {
         xQueueReceive(gpio_evt_queue, &int_time, portMAX_DELAY);

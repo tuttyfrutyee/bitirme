@@ -110,8 +110,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/main/cmake_install.cmake")
   include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAVER/cmake_install.cmake")
   include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/BLUETOOTH/cmake_install.cmake")
-  include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/cmake_install.cmake")
   include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/WIRED/cmake_install.cmake")
+  include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/SAMPLER/cmake_install.cmake")
 
 endif()
 
