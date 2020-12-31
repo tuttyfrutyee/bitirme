@@ -1,4 +1,4 @@
-# Install script for directory: /Users/tuttyfruty/esp/esp-idf/components/soc
+# Install script for directory: /home/salih/esp/esp-idf/components/soc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/esp-idf/soc/esp32/cmake_install.cmake")
+  include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/soc/src/esp32/cmake_install.cmake")
+  include("/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/soc/soc/cmake_install.cmake")
 
 endif()
 

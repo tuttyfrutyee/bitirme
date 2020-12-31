@@ -1,4 +1,4 @@
-/* * Data converted from /Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

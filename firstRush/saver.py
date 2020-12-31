@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 # Configuring and starting Serial communication
 ser = serial.Serial() # Creating serial port object
 ser.baudrate = 115200
-ser.port = "/dev/cu.SLAB_USBtoUART" # Port being used
+ser.port = "/dev/ttyUSB0" # Port being used
 ser.timeout = 1
 
 angleFileName = "angles.txt"
@@ -50,13 +50,13 @@ while (True):
                 if "#" in reading: # if it is register data
                     a = 3                    
                 elif "$" in reading: # if it is angle data
-                    angle = float(reading.split("_")[1])
-                    timeStamp= int(reading.split("_")[2])
+                    angle = reading.split("_")[1]
+                    timeStamp= reading.split("_")[2]
                     
-                    angleFile.write(reading + "\n")
+                    angleFile.write(angle + " " + timeStamp + "\n")
                     
-                    angles.append(angle)
-                    timeStamps.append(timeStamp)
+                    angles.append(float(angle))
+                    timeStamps.append(int(timeStamp))
                     
                     diff = time.time() - start
                     print(diff)

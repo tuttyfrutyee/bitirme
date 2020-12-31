@@ -16,10 +16,17 @@
 #include "bluetoothh.h"
 #include "saver.h"
 #include "sampler.h"
+#include "wired.h"
+
+#define DEV_ID 0
 
 void app_main(void)
 {
-    initBluetoothAndStartRecieve();
-    startSaver();
+    init_sampler();
+    init_syncher(DEV_ID);
+    if(DEV_ID == 0) {
+        initBluetoothAndStartRecieve();
+        startSaver();
+    }
     startSampler();
 }

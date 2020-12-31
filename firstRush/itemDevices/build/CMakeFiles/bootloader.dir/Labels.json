@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/CMakeFiles/bootloader"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/CMakeFiles/bootloader.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/Users/tuttyfruty/Documents/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/home/salih/Documents/493_first_rush/bitirme/firstRush/itemDevices/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		}
 	],
 	"target" : 

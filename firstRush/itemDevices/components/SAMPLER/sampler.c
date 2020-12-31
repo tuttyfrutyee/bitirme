@@ -10,6 +10,7 @@
 #include "driver/gpio.h"
 #include "esp_timer.h"
 #include <math.h>
+#include "wired.h"
 
 
 
@@ -35,36 +36,29 @@ DRAM_ATTR uint32_t spi_counter_saved = 0;
 DRAM_ATTR uint32_t dft_counter = 0;
 DRAM_ATTR TaskHandle_t adc_spi_task_handle, dft_task_handle;
 
+esp_timer_handle_t periodic_timer;
+spi_transaction_t transfer;
+spi_device_handle_t spi;
+//lets believe in this shit
+
 void periodic_timer_callback(void* arg);
 void adc_spi_task(void *pvParameters);
 void dft_task(void *pvParameters);
 float mean(float* arr, int len);
 
-
-void startSampler(){
-
-	xTaskCreatePinnedToCore(adc_spi_task, "ADC", 1000, NULL, 2, &adc_spi_task_handle, 1);
-	xTaskCreatePinnedToCore(dft_task, "DFT", 3000, NULL, 3, &dft_task_handle, 0);
-
+void init_sampler() {
     // TIMER
     const esp_timer_create_args_t periodic_timer_args = {
               .callback = &periodic_timer_callback,
               /* name is optional, but may help identify the timer when debugging */
               .name = "periodic"
-      };
+    };
 
-    esp_timer_handle_t periodic_timer;
     ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
     /* The timer has been created but is not running yet */
 
-    ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1000000));
-
-}
-
-
-void adc_spi_task(void *pvParameters){
-	esp_err_t ret;
-	spi_device_handle_t spi;
+    //SPI
+    esp_err_t ret;
 	spi_bus_config_t spiBusCfg={
 			.miso_io_num=PIN_NUM_MISO,
 			.mosi_io_num=PIN_NUM_MOSI,
@@ -81,7 +75,6 @@ void adc_spi_task(void *pvParameters){
 			.queue_size=1, // Not sure whether this should be 0 or 1
 			.cs_ena_posttrans=1
 	};
-	spi_transaction_t transfer;
 	memset(&transfer, 0, sizeof(spi_transaction_t));
 	transfer.length = 18;
 	transfer.tx_buffer = cmd_read;
@@ -91,8 +84,22 @@ void adc_spi_task(void *pvParameters){
 	ESP_ERROR_CHECK(ret);
 	ret=spi_bus_add_device(ADC_HOST, &devCfg, &spi);
 	ESP_ERROR_CHECK(ret);
+}
+
+void startSampler(){
+
+	xTaskCreatePinnedToCore(adc_spi_task, "ADC", 1000, NULL, 2, &adc_spi_task_handle, 1);
+	xTaskCreatePinnedToCore(dft_task, "DFT", 3000, NULL, 3, &dft_task_handle, 0);
+
+    ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1000000));
+
+}
+
+
+void adc_spi_task(void *pvParameters){
 
 	vTaskSuspendAll();
+    esp_err_t ret;
 	int64_t now, prev = esp_timer_get_time();
 	for(;;){
 		now = esp_timer_get_time();
