@@ -69,7 +69,7 @@ AngleEl* popFromAngleQueue(){
 }
 
 // FOR REGISTER STACK
-#define MAXCAPACITY_REGISTER 1000 //actually max capacity is maxCapacity - 1
+#define MAXCAPACITY_REGISTER 500 //actually max capacity is maxCapacity - 1
 int front_register = 0, rear_register = 0;
 RegisterEl** queue_register[MAXCAPACITY_REGISTER];
 
@@ -91,10 +91,8 @@ int getRegisterQueueSize(){
 }
 
 int pushToRegisterQueue(RegisterEl* element){
-
     xSemaphoreTake(xSemaphore_register, portMAX_DELAY);
 
-    
     if(isRegisterQueueFull()){
         printf("Error : Queue is full, can not push anymore\n");
         return 0;
@@ -132,7 +130,11 @@ RegisterEl* popFromRegisterQueue(){
 
 void initStackk(){
     xSemaphore_angle = xSemaphoreCreateBinary();    
+    xSemaphoreGive(xSemaphore_angle);
+
     xSemaphore_register = xSemaphoreCreateBinary();        
+    xSemaphoreGive(xSemaphore_register);
+
 }
 
 

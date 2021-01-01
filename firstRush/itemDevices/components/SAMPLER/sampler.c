@@ -21,7 +21,7 @@
 #define PIN_NUM_CLK  14
 #define PIN_NUM_CS   15
 
-#define DFT_RANGE	 40
+#define DFT_RANGE	 20
 #define CLOCK_FREQ	 1000000
 #define SOUND_FREQ	 20000
 
@@ -92,8 +92,8 @@ void init_sampler(uint8_t dev_idd) {
 
 void startSampler(){
 
-	xTaskCreatePinnedToCore(adc_spi_task, "ADC", 1000, NULL, 2, &adc_spi_task_handle, 1);
-	xTaskCreatePinnedToCore(dft_task, "DFT", 3000, NULL, 3, &dft_task_handle, 0);
+	xTaskCreatePinnedToCore(adc_spi_task, "ADC", 1000, NULL, 6, &adc_spi_task_handle, tskNO_AFFINITY);
+	xTaskCreatePinnedToCore(dft_task, "DFT", 3000, NULL, 4, &dft_task_handle, tskNO_AFFINITY);
 
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1000000));
 
@@ -102,7 +102,7 @@ void startSampler(){
 
 void adc_spi_task(void *pvParameters){
 
-	vTaskSuspendAll();
+	//vTaskSuspendAll();
     esp_err_t ret;
 	int64_t now, prev = esp_timer_get_time();
 	for(;;){
@@ -114,7 +114,6 @@ void adc_spi_task(void *pvParameters){
 		prev = now;
 		spi_counter++;
 		xTaskNotifyGive(dft_task_handle);
-		taskYIELD();
 	}
 
 }
@@ -141,8 +140,8 @@ void dft_task(void *pvParameters){
 
     int printInterval = 1000;
 
-    float dftRegisterThreshold = 800;
-    int64_t dftRegisterInterval = 2000;
+    float dftRegisterThreshold = 1200;
+    int64_t dftRegisterInterval = 25000;
     int64_t registeredTime = 0;
 
 
@@ -173,9 +172,12 @@ void dft_task(void *pvParameters){
                 int64_t currentTime = esp_timer_get_time();
                 if(currentTime - registeredTime > dftRegisterInterval){
                     registeredTime = currentTime;
+                     //printf("vuhuuvv adc you know\n");
+                     //printf("dft is %f\n", dft);
                      send_own_register(dev_id, currentTime);
                 }
             }
+            if(spi_counter % printInterval == 0)
                 //printf("dft is %f\n", dft);
             taskYIELD();
         }

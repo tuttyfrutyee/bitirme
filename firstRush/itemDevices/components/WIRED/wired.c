@@ -41,13 +41,13 @@ void init_wired(int dev_id){
 
     init_syncher(dev_id);
 
-    xTaskCreatePinnedToCore(start_syncher, "start_syncher", 1024 , NULL, 7, NULL, 0);
+    xTaskCreatePinnedToCore(start_syncher, "start_syncher", 1024*2 , NULL, 9, NULL, tskNO_AFFINITY);
 
     if(dev_id != 2){
-        xTaskCreatePinnedToCore(listen_register_down, "listen", 1024, NULL, 5, NULL, 0);
+        xTaskCreatePinnedToCore(listen_register_down, "listen", 1024*4, NULL, 5, NULL, tskNO_AFFINITY);
     }
     if(dev_id != 0){
-        xTaskCreatePinnedToCore(gpio_task, "gpio_task", 2048, NULL, 10, NULL, 0);
+        xTaskCreatePinnedToCore(gpio_task, "gpio_task", 2048, NULL, 10, NULL, tskNO_AFFINITY);
     }
 
     
@@ -207,6 +207,7 @@ void listen_register_down(void* arg){
         for(;;){
             uart_read_bytes(UART_1, package, PACKAGE_LEN, portMAX_DELAY);
             saveRegister( *(int64_t*)(&(package[1])), package[0], 20000);
+            //printf("recieved package from bottom\n");
         }
         break;
 

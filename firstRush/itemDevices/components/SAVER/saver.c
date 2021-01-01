@@ -33,7 +33,7 @@ void saverMain(){
 
                 while(!isRegisterQueueEmpty()){
                     RegisterEl* registerEl = popFromRegisterQueue();
-                    printf("#_%c_%f_%lld\n", registerEl->itemId, registerEl->freq, registerEl->timeStamp);
+                    //printf("#_%d_%f_%lld\n", registerEl->itemId , registerEl->freq, registerEl->timeStamp);
                     free(registerEl);
                 }                
 
@@ -59,6 +59,7 @@ void saveAngle(float angle, int64_t timeStamp){
 }
 
 void saveRegister(int64_t timeStamp, uint8_t itemId, float freq){
+    printf("itemId : %u, timeStamp : %lld\n", itemId, timeStamp);
     RegisterEl *el = malloc(sizeof(RegisterEl));
     el->itemId = itemId;
     el->freq = freq;

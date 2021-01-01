@@ -18,7 +18,7 @@
 #include "sampler.h"
 #include "wired.h"
 
-#define DEV_ID 1
+#define DEV_ID 0
 
 void app_main(void)
 {
@@ -29,4 +29,5 @@ void app_main(void)
         startSaver();
     }
     startSampler(DEV_ID);
+    printf("started Sampler \n");
 }
