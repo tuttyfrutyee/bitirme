@@ -1,0 +1,2 @@
+/home/tuttyfrutyee/.espressif/tools/xtensa-esp32-elf/esp-2020r2-8.2.0/xtensa-esp32-elf/bin/xtensa-esp32-elf-ar qc libDETECTION.a  CMakeFiles/__idf_DETECTION.dir/detection.c.obj
+/home/tuttyfrutyee/.espressif/tools/xtensa-esp32-elf/esp-2020r2-8.2.0/xtensa-esp32-elf/bin/xtensa-esp32-elf-ranlib libDETECTION.a

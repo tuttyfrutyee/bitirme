@@ -1,0 +1,2 @@
+/home/tuttyfrutyee/.espressif/tools/xtensa-esp32-elf/esp-2020r2-8.2.0/xtensa-esp32-elf/bin/xtensa-esp32-elf-ar qc libMQTT.a  CMakeFiles/__idf_MQTT.dir/mqtt_helper.c.obj CMakeFiles/__idf_MQTT.dir/wifi_helper.c.obj
+/home/tuttyfrutyee/.espressif/tools/xtensa-esp32-elf/esp-2020r2-8.2.0/xtensa-esp32-elf/bin/xtensa-esp32-elf-ranlib libMQTT.a
